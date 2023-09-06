@@ -1,0 +1,10 @@
+﻿  GameFunctions.c
+C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\Reversi FINAL\GameFunctions.c(62,1): warning C4029: declared formal parameter list different from definition
+  Main.c
+  MandatoryHighFunctions.c
+  Generating Code...
+C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\Reversi FINAL\MandatoryHighFunctions.c(38): warning C4716: 'ExpandMove': must return a value
+C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\Reversi FINAL\MandatoryHighFunctions.c(33): warning C4716: 'FindMoves': must return a value
+C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\Reversi FINAL\MandatoryHighFunctions.c(48): warning C4716: 'PlayOneTurn': must return a value
+C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\Reversi FINAL\MandatoryHighFunctions.c(43): warning C4716: 'ScoreTree': must return a value
+  Reversi FINAL.vcxproj -> C:\Users\yokoj\source\repos\C programming course\Reversi FINAL\Reversi FINAL\x64\Debug\Reversi FINAL.exe
