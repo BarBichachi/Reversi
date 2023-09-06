@@ -13,7 +13,7 @@ void main()
 						/*8*/  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
 	};
 	//printBoard(manualBoard);
-	
+	// abaskdjasjkdhasjkdhkajsdh
 	//Board board;
 	ReversiPos move;
 	move.col = 'd';
