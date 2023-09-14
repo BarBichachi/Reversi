@@ -15,6 +15,7 @@ void main()
 
 	//printBoard(manualBoard);
 	//Board board;
+
 	ReversiPos move;
 	move.col = 'd';
 	move.row = '7';
@@ -22,5 +23,5 @@ void main()
 	int flips = CheckMove(manualBoard, PLAYER_X, &move);
 	MakeMove(manualBoard, PLAYER_X, &move);
 	printBoard(manualBoard);
-	
+	FindMoves(manualBoard, PLAYER_X);
 }

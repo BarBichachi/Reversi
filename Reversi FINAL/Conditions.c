@@ -1,4 +1,5 @@
 #include "Conditions.h"
+
 bool isTopRow(ReversiPos pos) {
 	if (pos.row == 'A')
 		return true;
@@ -56,3 +57,11 @@ bool isInsideBoard(int currentRow, int currentCol)
 		return true;
 	return false;
 }
+
+bool isEmptyList(MovesList* lst)
+{
+	if (lst->head == NULL && lst->tail == NULL)
+		return true;
+	return false;
+}
+

@@ -25,12 +25,35 @@ void MakeMove(Board board, Player player, ReversiPos* move)
 	int totalFlips = directionHelper(board, player, move, true);
 }
 
-
 //Q2
 MovesList FindMoves(Board board, Player player)
 {
+	MovesList lst;
+	makeEmptyList(&lst);
 
+	ReversiPos currPos;
+	int currFlips = 0;
+
+	for (int i = 0; i < BOARD_SIZE; i++)
+	{
+		currPos.row = '1' + i;
+		currPos.col = 'a';
+		for (int j = 0; j < BOARD_SIZE; j++)
+		{
+			if (board[currPos.row][currPos.col] == ' ')
+			{
+				currFlips = CheckMove(board, PLAYER_X, &currPos);
+
+				if (currFlips > 0)
+					insertDataToEndList(&lst, currPos, currFlips);
+			}
+			currPos.col += 1;
+		}
+	}
+
+	return lst;
 }
+
 //Q3
 MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 {
