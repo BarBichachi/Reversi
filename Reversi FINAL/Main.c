@@ -13,7 +13,6 @@ void main()
 						/*8*/  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
 	};
 
-	//Test Again
 	//printBoard(manualBoard);
 	//Board board;
 	ReversiPos move;
