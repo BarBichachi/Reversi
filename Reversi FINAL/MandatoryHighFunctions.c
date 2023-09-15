@@ -25,7 +25,7 @@ void MakeMove(Board board, Player player, ReversiPos* move)
 	int totalFlips = directionHelper(board, player, move, true);
 }
 
-//Q2
+//Function takes a board and a player and returns a list of valid moves for that player
 MovesList FindMoves(Board board, Player player)
 {
 	MovesList lst;
@@ -35,22 +35,18 @@ MovesList FindMoves(Board board, Player player)
 	int currFlips = 0;
 
 	for (int i = 0; i < BOARD_SIZE; i++)
-	{
-		currPos.row = '1' + i;
-		currPos.col = 'a';
 		for (int j = 0; j < BOARD_SIZE; j++)
-		{
-			if (board[currPos.row][currPos.col] == ' ')
+			// Checks if the board is empty
+			if (board[i][j] == ' ')
 			{
+				currPos.row = '1' + i;
+				currPos.col = 'a' + j;
 				currFlips = CheckMove(board, PLAYER_X, &currPos);
 
+				// In case there's a possible move
 				if (currFlips > 0)
 					insertDataToEndList(&lst, currPos, currFlips);
 			}
-			currPos.col += 1;
-		}
-	}
-
 	return lst;
 }
 

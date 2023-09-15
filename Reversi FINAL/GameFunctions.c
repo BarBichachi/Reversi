@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "GameFunctions.h"
 
 // This function initializes the game board
@@ -46,6 +47,21 @@ void printBoard(Board board) {
 		printf("\n");
 	}
 	printSeperatingLine();
+}
+
+// This function prints the given moves list
+void printList(MovesList* lst)
+{
+	MovesListNode* current = lst->head;
+
+	while (current != NULL)
+	{
+		printf("Position: (%c, %c)\n", current->pos.row, current->pos.col);
+		printf("Flips: %d\n", current->flips);
+		printf("\n");
+
+		current = current->next;
+	}
 }
 
 // This function prints a separating line to visually separate rows and columns on the game board
@@ -127,6 +143,7 @@ MovesListNode* createNewListNode(ReversiPos pos, int flips, MovesListNode* next)
 {
 	MovesListNode* res = (MovesListNode*)malloc(sizeof(MovesListNode));
 	checkAllocation(res);
+
 	res->pos = pos;
 	res->flips = flips;
 	res->next = next;

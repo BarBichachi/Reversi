@@ -1,5 +1,8 @@
-﻿  MandatoryHighFunctions.c
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(71): warning C4716: 'PlayOneTurn': must return a value
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(66): warning C4716: 'ScoreTree': must return a value
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(61): warning C4716: 'ExpandMove': must return a value
+﻿  GameFunctions.c
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(78,1): warning C4029: declared formal parameter list different from definition
+  MandatoryHighFunctions.c
+  Generating Code...
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(60): warning C4716: 'ExpandMove': must return a value
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(70): warning C4716: 'PlayOneTurn': must return a value
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(65): warning C4716: 'ScoreTree': must return a value
   Reversi FINAL.vcxproj -> C:\Users\Bar Bichachi\Source\Repos\BarBichachi\Reversi\x64\Debug\Reversi FINAL.exe

@@ -23,5 +23,6 @@ void main()
 	int flips = CheckMove(manualBoard, PLAYER_X, &move);
 	MakeMove(manualBoard, PLAYER_X, &move);
 	printBoard(manualBoard);
-	FindMoves(manualBoard, PLAYER_X);
+	MovesList moves = FindMoves(manualBoard, PLAYER_X);
+	printList(&moves);
 }
