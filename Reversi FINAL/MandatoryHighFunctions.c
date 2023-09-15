@@ -68,7 +68,55 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 //Q4
 int ScoreTree(MovesTree* movesTree)
 {
+	// Implement here a call to use ScoreTreeHelper
+}
 
+int ScoreTreeHelper(MovesTreeNode* root, Player rootPlayer)
+{
+
+
+	// Implement here a recursive call of ScoreTreeHelper
+
+
+
+
+	int movesMinMax = 0;
+	int playerXFlips = 0;
+	int playerOFlips = 0;
+	Player currPlayer = root->player;
+
+	// In case it's a leaf
+	if (root->num_moves == 0)
+	{
+		if (currPlayer == PLAYER_X)
+			playerXFlips += root->flips;
+		else
+			playerOFlips += root->flips;
+	}
+	// In case it's a parent
+	else
+	{
+		// In case it's the same node as the root, calculate the minimum of his childs
+		if (currPlayer == rootPlayer)
+		{
+			movesMinMax = root->next_moves[0]->num_moves;
+			for (int i = 1; i < root->num_moves; i++)
+			{
+				if (movesMinMax > root->next_moves[i]->num_moves)
+					movesMinMax = root->next_moves[i]->num_moves;
+			}
+		}
+		// In case it's the enemy node of the root, calculate the maximum of his childs
+		else
+		{
+			movesMinMax = root->next_moves[0]->num_moves;
+			for (int i = 1; i < root->num_moves; i++)
+			{
+				if (movesMinMax < root->next_moves[i]->num_moves)
+					movesMinMax = root->next_moves[i]->num_moves;
+			}
+		}
+	}
 }
 
 //Q5
