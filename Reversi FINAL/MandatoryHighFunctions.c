@@ -3,7 +3,7 @@
 #include "MandatoryHighFunctions.h"
 
 //Q1
-// Function to check if a move is valid and calculate the number of pieces to flip
+// This function checks if a move is valid and calculates the number of pieces to flip
 int CheckMove(Board board, Player player, ReversiPos* move)
 {
 	int row = move->row - '1';
@@ -15,7 +15,7 @@ int CheckMove(Board board, Player player, ReversiPos* move)
 	return directionHelper(board, player, move, false);
 }
 
-// Function to make a move and flip the necessary pieces
+// This function makes a move and flips the necessary pieces
 void MakeMove(Board board, Player player, ReversiPos* move)
 {
 	int row = move->row - '1';
@@ -25,7 +25,7 @@ void MakeMove(Board board, Player player, ReversiPos* move)
 	int totalFlips = directionHelper(board, player, move, true);
 }
 
-//Function takes a board and a player and returns a list of valid moves for that player
+// This function takes a board and a player and returns a list of valid moves for that player
 MovesList FindMoves(Board board, Player player)
 {
 	MovesList lst;
@@ -41,7 +41,7 @@ MovesList FindMoves(Board board, Player player)
 			{
 				currPos.row = '1' + i;
 				currPos.col = 'a' + j;
-				currFlips = CheckMove(board, PLAYER_X, &currPos);
+				currFlips = CheckMove(board, player, &currPos);
 
 				// In case there's a possible move
 				if (currFlips > 0)
@@ -50,21 +50,33 @@ MovesList FindMoves(Board board, Player player)
 	return lst;
 }
 
-//Q3
+// This function creates and initializes a MovesTree representing the game for a given move
 MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 {
+	MovesTree* tr = (MovesTree*)malloc(sizeof(MovesTree));
+	checkAllocation(tr);
 
+	tr->root = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
+	checkAllocation(tr->root);
+
+	memcpy(tr->board, b, sizeof(Board));
+	ExpandMoveHelper(b, p, move, height, tr->root);
+
+	return tr;
 }
+
 //Q4
 int ScoreTree(MovesTree* movesTree)
 {
 
 }
+
 //Q5
 int PlayOneTurn(Board board, Player player, int height)
 {
 
 }
+
 //Q6
 void PlayGame(Board board, Player first, int h1, int h2)
 {

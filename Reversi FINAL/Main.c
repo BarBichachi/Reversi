@@ -14,15 +14,20 @@ void main()
 	};
 
 	//printBoard(manualBoard);
-	//Board board;
+	Board board;
 
 	ReversiPos move;
 	move.col = 'd';
-	move.row = '7';
-	//initializeBoard(board);
+	move.row = '6';
+	initializeBoard(board);
 	int flips = CheckMove(manualBoard, PLAYER_X, &move);
-	MakeMove(manualBoard, PLAYER_X, &move);
+	//MakeMove(manualBoard, PLAYER_X, &move);
 	printBoard(manualBoard);
+
 	MovesList moves = FindMoves(manualBoard, PLAYER_X);
+	MovesTree* tr = ExpandMove(manualBoard, PLAYER_X, &move, 5);
 	printList(&moves);
+
+	//FreeTree(tr->root);
+	//free(tr);
 }

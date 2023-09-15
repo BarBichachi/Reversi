@@ -52,15 +52,15 @@ void printBoard(Board board) {
 // This function prints the given moves list
 void printList(MovesList* lst)
 {
-	MovesListNode* current = lst->head;
+	MovesListNode* curr = lst->head;
 
-	while (current != NULL)
+	while (curr != NULL)
 	{
-		printf("Position: (%c, %c)\n", current->pos.row, current->pos.col);
-		printf("Flips: %d\n", current->flips);
+		printf("Position: (%c, %c)\n", curr->pos.row, curr->pos.col);
+		printf("Flips: %d\n", curr->flips);
 		printf("\n");
 
-		current = current->next;
+		curr = curr->next;
 	}
 }
 
@@ -213,4 +213,79 @@ void checkAllocation(void* ptr)
 		printf("Memory allocation failed!");
 		exit(1);
 	}
+}
+
+// This function expands the game tree based on available moves
+void ExpandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
+{
+	Board tmpBoard;
+	int i = 0;
+	Player enemyPlayer = getEnemy(p);
+	MovesList lst = FindMoves(b, enemyPlayer);
+
+	// Populate the root node with the current move & player and then makes the move
+	root->pos = *move;
+	root->player = p;
+	root->flips = CheckMove(b, p, move);
+	MakeMove(b, p, move);
+
+	// If there are no moves for the enemy player or height reaches 0
+	if (isEmptyList(&lst) || height == 0)
+	{
+		root->num_moves = 0;
+		root->next_moves = NULL;
+		return;
+	}
+
+	// Initialize the next_moves array in the root
+	MovesListNode* curr = lst.head;
+	root->num_moves = countMoves(&lst);
+	root->next_moves = (MovesTreeNode**)malloc((root->num_moves) * sizeof(MovesTreeNode*));
+	checkAllocation(root->next_moves);
+
+	// Copy the current board state for recursive calls
+	memcpy(tmpBoard, b, sizeof(Board));
+
+	// Recursively build the game tree for enemy player's moves
+	while (curr != NULL)
+	{
+		root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
+		checkAllocation(root->next_moves[i]);
+		ExpandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
+		curr = curr->next;
+		i++;
+	}
+}
+
+// This function returns the enemy player
+Player getEnemy(Player p)
+{
+	if (p == PLAYER_O)
+		return PLAYER_X;
+	return PLAYER_O;
+}
+
+// This function counts the number of nodes in the list
+int countMoves(MovesList* lst)
+{
+	MovesListNode* curr = lst->head;
+	int count = 0;
+	while (curr != NULL)
+	{
+		count++;
+		curr = curr->next;
+	}
+	return count;
+}
+
+// This function recursively frees the tree
+void FreeTree(MovesTreeNode* root) {
+	if (root == NULL) 
+		return;
+
+	for (int i = 0; i < root->num_moves; i++) 
+		FreeTree(root->next_moves[i]);
+	
+	free(root->next_moves);
+	free(root);
 }

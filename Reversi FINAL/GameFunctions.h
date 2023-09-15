@@ -14,3 +14,6 @@ void insertDataToEndList(MovesList* lst, ReversiPos pos, int flips);
 void insertNodeToEndList(MovesList* lst, MovesListNode* tail);
 void freeList(MovesList* lst);
 void checkAllocation(void* ptr);
+void ExpandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root);
+Player getEnemy(Player p);
+int countMoves(MovesList* lst);

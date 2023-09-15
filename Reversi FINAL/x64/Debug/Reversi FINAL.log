@@ -1,8 +1,13 @@
 ﻿  GameFunctions.c
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(78,1): warning C4029: declared formal parameter list different from definition
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(79,1): warning C4029: declared formal parameter list different from definition
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(224,18): warning C4013: 'FindMoves' undefined; assuming extern returning int
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(229,16): warning C4013: 'CheckMove' undefined; assuming extern returning int
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(230,2): warning C4013: 'MakeMove' undefined; assuming extern returning int
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(247,2): warning C4013: 'memcpy' undefined; assuming extern returning int
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(224,12): error C2440: 'initializing': cannot convert from 'int' to 'MovesList'
+  Main.c
   MandatoryHighFunctions.c
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(62,2): warning C4013: 'memcpy' undefined; assuming extern returning int
   Generating Code...
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(60): warning C4716: 'ExpandMove': must return a value
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(70): warning C4716: 'PlayOneTurn': must return a value
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(65): warning C4716: 'ScoreTree': must return a value
-  Reversi FINAL.vcxproj -> C:\Users\Bar Bichachi\Source\Repos\BarBichachi\Reversi\x64\Debug\Reversi FINAL.exe
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(81): warning C4716: 'PlayOneTurn': must return a value
+C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(75): warning C4716: 'ScoreTree': must return a value
