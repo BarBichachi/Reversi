@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "GameFunctions.h"
+
+#include "MandatoryHighFunctions.h"
 
 // This function initializes the game board
 void initializeBoard(Board board)
@@ -75,7 +76,7 @@ void printSeperatingLine() {
 }
 
 // Function to check and calculate the number of pieces to flip in a specific direction
-int CheckDirection(Board board, Player player, int rowDirection, int colDirection, ReversiPos* move, bool change)
+int checkDirection(Board board, Player player, int rowDirection, int colDirection, ReversiPos* move, bool change)
 {
 	// If 'change' is true, place the player's piece on the initial cell
 	if (change == true)
@@ -120,11 +121,11 @@ int directionHelper(Board board, Player player, ReversiPos* move, bool change)
 			else
 			{
 				// Check and calculate the number of pieces to flip in the current direction
-				currentFlip = CheckDirection(board, player, i, j, move, false);
+				currentFlip = checkDirection(board, player, i, j, move, false);
 
 				// If 'change' is true, actually flip the pieces on the board
 				if (currentFlip > 0 && change == true)
-					currentFlip = CheckDirection(board, player, i, j, move, true);
+					currentFlip = checkDirection(board, player, i, j, move, true);
 
 				totalFlips += currentFlip;
 			}
@@ -216,7 +217,7 @@ void checkAllocation(void* ptr)
 }
 
 // This function expands the game tree based on available moves
-void ExpandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
+void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
 {
 	Board tmpBoard;
 	int i = 0;
@@ -251,7 +252,7 @@ void ExpandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 	{
 		root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
 		checkAllocation(root->next_moves[i]);
-		ExpandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
+		expandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
 		curr = curr->next;
 		i++;
 	}
@@ -279,13 +280,58 @@ int countMoves(MovesList* lst)
 }
 
 // This function recursively frees the tree
-void FreeTree(MovesTreeNode* root) {
+void freeTree(MovesTreeNode* root)
+{
 	if (root == NULL) 
 		return;
 
 	for (int i = 0; i < root->num_moves; i++) 
-		FreeTree(root->next_moves[i]);
+		freeTree(root->next_moves[i]);
 	
 	free(root->next_moves);
 	free(root);
+}
+
+// This function recursively evaluates the score of a moves tree by traversing the tree,
+// the score is based on the flips value and wether the node is a leaf or parent node
+int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
+{
+	int currPoints = 0;
+	int tmpPoints = 0;
+	Player currPlayer = root->player;
+
+	// In case it's a leaf
+	if (root->num_moves == 0)
+	{
+		if (currPlayer == rootPlayer)
+			points += root->flips;
+		else
+			points -= root->flips;
+		return points;
+	}
+
+	// In case it's a parent
+	else
+	{
+		currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points - root->flips);
+
+		// In case it's the same node as the root, calculate the minimum of his childs
+		if (currPlayer == rootPlayer)
+			for (int i = 1; i < root->num_moves; i++)
+			{
+				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points + root->flips);
+				if (tmpPoints < currPoints)
+					currPoints = tmpPoints;
+			}
+
+		// In case it's the enemy node of the root, calculate the maximum of his childs
+		else
+			for (int i = 1; i < root->num_moves; i++)
+			{
+				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points - root->flips);
+				if (tmpPoints > currPoints)
+					currPoints = tmpPoints;
+			}
+	}
+	return currPoints;
 }

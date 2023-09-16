@@ -1,5 +1,6 @@
 #pragma once
 #include "GameFunctions.h"
+
 //Q1
 int CheckMove(Board board, Player player, ReversiPos* move);
 void MakeMove(Board board, Player player, ReversiPos* move);
