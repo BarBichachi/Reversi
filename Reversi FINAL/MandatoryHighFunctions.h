@@ -8,6 +8,7 @@ void MakeMove(Board board, Player player, ReversiPos* move);
 MovesList FindMoves(Board board, Player player);
 //Q3
 MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height);
+void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root);
 //Q4
 int ScoreTree(MovesTree* movesTree);
 //Q5

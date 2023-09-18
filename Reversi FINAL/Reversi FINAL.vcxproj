@@ -22,12 +22,14 @@
     <ClInclude Include="Conditions.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameFunctions.h" />
+    <ClInclude Include="ListFunctions.h" />
     <ClInclude Include="MandatoryHighFunctions.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Conditions.c" />
     <ClCompile Include="GameFunctions.c" />
+    <ClCompile Include="ListFunctions.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="MandatoryHighFunctions.c" />
   </ItemGroup>

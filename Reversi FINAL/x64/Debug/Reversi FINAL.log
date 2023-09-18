@@ -1,9 +1,10 @@
 ﻿  GameFunctions.c
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(80,1): warning C4029: declared formal parameter list different from definition
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\GameFunctions.c(248,2): warning C4013: 'memcpy' undefined; assuming extern returning int
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(91,61): warning C4020: 'checkDirection': too many actual parameters
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(95,62): warning C4020: 'checkDirection': too many actual parameters
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(104,1): warning C4029: declared formal parameter list different from definition
   Main.c
   MandatoryHighFunctions.c
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(63,2): warning C4013: 'memcpy' undefined; assuming extern returning int
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\MandatoryHighFunctions.c(64,2): warning C4013: 'memcpy' undefined; assuming extern returning int
   Generating Code...
-C:\Users\Bar Bichachi\source\repos\BarBichachi\Reversi\Reversi FINAL\MandatoryHighFunctions.c(88): warning C4716: 'PlayOneTurn': must return a value
-  Reversi FINAL.vcxproj -> C:\Users\Bar Bichachi\Source\Repos\BarBichachi\Reversi\x64\Debug\Reversi FINAL.exe
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\MandatoryHighFunctions.c(132): warning C4716: 'PlayOneTurn': must return a value
+  Reversi FINAL.vcxproj -> C:\Users\yokoj\Documents\GitHub\Reversi\x64\Debug\Reversi FINAL.exe

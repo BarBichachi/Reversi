@@ -1,6 +1,5 @@
 #pragma once
 #include "Constants.h"
-
 typedef struct _reversiPos {
 	char row, col;
 }ReversiPos;

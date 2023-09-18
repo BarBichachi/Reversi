@@ -15,7 +15,6 @@ int CheckMove(Board board, Player player, ReversiPos* move)
 
 	return directionHelper(board, player, move, false);
 }
-
 // This function makes a move and flips the necessary pieces
 void MakeMove(Board board, Player player, ReversiPos* move)
 {
@@ -26,6 +25,7 @@ void MakeMove(Board board, Player player, ReversiPos* move)
 	int totalFlips = directionHelper(board, player, move, true);
 }
 
+//Q2
 // This function takes a board and a player and returns a list of valid moves for that player
 MovesList FindMoves(Board board, Player player)
 {
@@ -51,6 +51,7 @@ MovesList FindMoves(Board board, Player player)
 	return lst;
 }
 
+//Q3
 // This function creates and initializes a MovesTree representing the game for a given move
 MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 {
@@ -66,6 +67,49 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 	return tr;
 }
 
+// This function expands the game tree based on available moves
+void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
+{
+	Board tmpBoard;
+	int i = 0;
+	Player enemyPlayer = getEnemy(p);
+	MovesList lst = FindMoves(b, enemyPlayer);
+
+	// Populate the root node with the current move & player and then makes the move
+	root->pos = *move;
+	root->player = p;
+	root->flips = CheckMove(b, p, move);
+	MakeMove(b, p, move);
+
+	// If there are no moves for the enemy player or height reaches 0
+	if (isEmptyList(&lst) || height == 0)
+	{
+		root->num_moves = 0;
+		root->next_moves = NULL;
+		return;
+	}
+
+	// Initialize the next_moves array in the root
+	MovesListNode* curr = lst.head;
+	root->num_moves = countMoves(&lst);
+	root->next_moves = (MovesTreeNode**)malloc((root->num_moves) * sizeof(MovesTreeNode*));
+	checkAllocation(root->next_moves);
+
+	// Copy the current board state for recursive calls
+	memcpy(tmpBoard, b, sizeof(Board));
+
+	// Recursively build the game tree for enemy player's moves
+	while (curr != NULL)
+	{
+		root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
+		checkAllocation(root->next_moves[i]);
+		expandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
+		curr = curr->next;
+		i++;
+	}
+}
+
+//Q4
 // This function calculates the score by calling the ScoreTreeHelper function
 int ScoreTree(MovesTree* movesTree)
 {

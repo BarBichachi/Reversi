@@ -1,5 +1,14 @@
 #include "Conditions.h"
 
+// This function checks if the memory allocation was successful.
+void checkAllocation(void* ptr)
+{
+	if (ptr == NULL)
+	{
+		printf("Memory allocation failed!");
+		exit(1);
+	}
+}
 bool isTopRow(ReversiPos pos) {
 	if (pos.row == 'A')
 		return true;

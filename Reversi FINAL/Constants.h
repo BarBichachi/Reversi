@@ -1,5 +1,4 @@
 #pragma once
-
 #define BOARD_SIZE 8
 #define PLAYER_O 'O'
 #define PLAYER_X 'X'
