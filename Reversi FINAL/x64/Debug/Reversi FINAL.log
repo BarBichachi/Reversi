@@ -1,8 +1,2 @@
-﻿  GameFunctions.c
-C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(91,61): warning C4020: 'checkDirection': too many actual parameters
-C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(95,62): warning C4020: 'checkDirection': too many actual parameters
-C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\GameFunctions.c(104,1): warning C4029: declared formal parameter list different from definition
-  MandatoryHighFunctions.c
-C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\MandatoryHighFunctions.c(61,2): warning C4013: 'memcpy' undefined; assuming extern returning int
-  Generating Code...
+﻿  Main.c
   Reversi FINAL.vcxproj -> C:\Users\yokoj\Documents\GitHub\Reversi\x64\Debug\Reversi FINAL.exe

@@ -59,7 +59,7 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 	checkAllocation(tr->root);
 
 	memcpy(tr->board, b, sizeof(Board));
-	expandMoveHelper(b, p, move, height, tr->root);
+	expandMoveHelper(tr->board, p, move, height, tr->root);
 
 	return tr;
 }
@@ -111,6 +111,9 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 int ScoreTree(MovesTree* movesTree)
 {
 	int tmpPoints = 0;
+	if (movesTree->root->next_moves == NULL)
+		return scoreTreeHelper(movesTree->root, movesTree->root->player, movesTree->root->flips);
+
 	int currPoints = scoreTreeHelper(movesTree->root->next_moves[0], movesTree->root->player, movesTree->root->flips);
 
 	for (int i = 1; i < movesTree->root->num_moves; i++)
@@ -148,6 +151,7 @@ int PlayOneTurn(Board board, Player player, int height)
 	}
 
 	MakeMove(board, player, &bestMove);
+	printf("\n%c's turn: %c%c\n", player, bestMove.col, bestMove.row);
 	return 1;
 }
 
@@ -162,7 +166,11 @@ void PlayGame(Board board, Player first, int h1, int h2)
 		canMove = PlayOneTurn(board, first, h1);
 		if (canMove == 0)
 			break;
-		canMove = PlayOneTurn(board, second, h1);
+		printBoard(board);
+		canMove = PlayOneTurn(board, second, h2);
+		if (canMove == 0)
+			break;
+		printBoard(board);
 	}
 
 	printWinner(board);
