@@ -13,20 +13,39 @@ void main()
 						/*8*/  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
 	};
 
-	//printBoard(manualBoard);
-	Board board;
-
-	ReversiPos move;
-	move.col = 'd';
-	move.row = '6';
-	initializeBoard(board);
-	int flips = CheckMove(manualBoard, PLAYER_X, &move);
-	//MakeMove(manualBoard, PLAYER_X, &move);
+	
 	printBoard(manualBoard);
+	PlayGame(manualBoard, PLAYER_X, 1, 1);
+	
+	
 
-	MovesList moves = FindMoves(manualBoard, PLAYER_X);
-	MovesTree* tr = ExpandMove(manualBoard, PLAYER_X, &move, 5);
-	printList(&moves);
+
+
+
+	
+	
+	
+	
+	//Board board;
+	//initializeBoard(board);
+	//printBoard(board);
+
+
+
+	//ReversiPos move;
+	//move.col = 'd';
+	//move.row = '6';
+	//int flips = CheckMove(manualBoard, PLAYER_X, &move);
+	//MakeMove(manualBoard, PLAYER_X, &move);
+	//printBoard(manualBoard);
+
+	//MovesList moves = FindMoves(manualBoard, PLAYER_X);
+	//printList(&moves);
+	// 
+	// 
+	// 
+	// 
+	//MovesTree* tr = ExpandMove(manualBoard, PLAYER_X, &move, 5);
 
 	//FreeTree(tr->root);
 	//free(tr);

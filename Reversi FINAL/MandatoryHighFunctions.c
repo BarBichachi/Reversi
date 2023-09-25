@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-
 #include "MandatoryHighFunctions.h"
 
 //Q1
@@ -128,11 +125,45 @@ int ScoreTree(MovesTree* movesTree)
 //Q5
 int PlayOneTurn(Board board, Player player, int height)
 {
+	MovesList movesList = FindMoves(board, player);
+	if (isEmptyList(&movesList))
+		return 0;
+	
+	MovesListNode* currMove = movesList.head;
 
+
+	int bestScore = 0;
+	ReversiPos bestMove = currMove->pos;
+
+	while (currMove != NULL)
+	{
+		MovesTree* currTree = ExpandMove(board, player, &(currMove->pos), height);
+		int currScore = ScoreTree(currTree);
+		if (currScore > bestScore)
+		{
+			bestMove = currMove->pos;
+			bestScore = currScore;
+		}
+		currMove = currMove->next;
+	}
+
+	MakeMove(board, player, &bestMove);
+	return 1;
 }
 
 //Q6
 void PlayGame(Board board, Player first, int h1, int h2)
 {
+	Player second = getEnemy(first);
+	int canMove = 1;
 
+	while (canMove == 1)
+	{
+		canMove = PlayOneTurn(board, first, h1);
+		if (canMove == 0)
+			break;
+		canMove = PlayOneTurn(board, second, h1);
+	}
+
+	printWinner(board);
 }

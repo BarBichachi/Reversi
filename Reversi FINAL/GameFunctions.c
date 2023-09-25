@@ -186,7 +186,7 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 	{
 		currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points - root->flips);
 
-		// In case it's the same node as the root, calculate the minimum of his childs
+		// In case it's the same player as the root, calculate the minimum of his childs
 		if (currPlayer == rootPlayer)
 			for (int i = 1; i < root->num_moves; i++)
 			{
@@ -195,7 +195,7 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 					currPoints = tmpPoints;
 			}
 
-		// In case it's the enemy node of the root, calculate the maximum of his childs
+		// In case it's the enemy player's node, calculate the maximum of his childs
 		else
 			for (int i = 1; i < root->num_moves; i++)
 			{
@@ -205,4 +205,25 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 			}
 	}
 	return currPoints;
+}
+
+void printWinner(Board board)
+{
+	int x, o;
+	x = o = 0;
+	for (int i = 0; i < BOARD_SIZE; i++)
+		for (int j = 0; j < BOARD_SIZE; j++)
+		{
+			if (board[i][j] == PLAYER_X)
+				x++;
+			else if (board[i][j] == PLAYER_O)
+				o++;
+		}
+
+	if (x == o)
+		printf("It's a tie!\n");
+	else if (x > o)
+		printf("%c won! %d vs %d\n", PLAYER_X, x, o);
+	else
+		printf("%c won! %d vs %d\n", PLAYER_O, o, x);
 }
