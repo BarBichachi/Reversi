@@ -184,25 +184,30 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 	// In case it's a parent
 	else
 	{
-		currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points - root->flips);
 
 		// In case it's the same player as the root, calculate the minimum of his childs
 		if (currPlayer == rootPlayer)
+		{
+			currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points + root->flips);
 			for (int i = 1; i < root->num_moves; i++)
 			{
 				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points + root->flips);
 				if (tmpPoints < currPoints)
 					currPoints = tmpPoints;
 			}
+		}
 
 		// In case it's the enemy player's node, calculate the maximum of his childs
 		else
+		{
+			currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points - root->flips);
 			for (int i = 1; i < root->num_moves; i++)
 			{
 				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points - root->flips);
 				if (tmpPoints > currPoints)
 					currPoints = tmpPoints;
 			}
+		}
 	}
 	return currPoints;
 }

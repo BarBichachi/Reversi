@@ -55,10 +55,6 @@ bool unableToCapture(Board board, ReversiPos* pos)
 {
 
 }
-bool winningCondition(Board board, Player player)
-{
-
-}
 
 bool isInsideBoard(int currentRow, int currentCol)
 {

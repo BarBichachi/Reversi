@@ -79,9 +79,9 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 	MakeMove(tmpBoard, p, move);
 
 	Player enemyPlayer = getEnemy(p);
-	MovesList lst = FindMoves(b, enemyPlayer);
+	MovesList enemyLst = FindMoves(tmpBoard, enemyPlayer);
 	// If there are no moves for the enemy player or height reaches 0
-	if (isEmptyList(&lst) || height == 0)
+	if (isEmptyList(&enemyLst) || height == 0)
 	{
 		root->num_moves = 0;
 		root->next_moves = NULL;
@@ -89,36 +89,36 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 	}
 
 	// Initialize the next_moves array in the root
-	MovesListNode* curr = lst.head;
-	root->num_moves = countMoves(&lst);
+	root->num_moves = countMoves(&enemyLst);
 	root->next_moves = (MovesTreeNode**)malloc((root->num_moves) * sizeof(MovesTreeNode*));
 	checkAllocation(root->next_moves);
 
 	// Recursively build the game tree for enemy player's moves
-	int i = 0;
-	while (curr != NULL)
-	{
-		root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
-		checkAllocation(root->next_moves[i]);
-		expandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
-		curr = curr->next;
-		i++;
-	}
+	MovesListNode* curr = enemyLst.head;
+		for (int i = 0; i < root->num_moves; i++)
+		{
+			root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
+			checkAllocation(root->next_moves[i]);
+			expandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
+			curr = curr->next;
+		}
+
 }
 
 //Q4
 // This function calculates the score by calling the ScoreTreeHelper function
 int ScoreTree(MovesTree* movesTree)
 {
-	int tmpPoints = 0;
+	Player rootPlayer = movesTree->root->player;
 	if (movesTree->root->next_moves == NULL)
-		return scoreTreeHelper(movesTree->root, movesTree->root->player, movesTree->root->flips);
+		return scoreTreeHelper(movesTree->root, rootPlayer, 0);
 
-	int currPoints = scoreTreeHelper(movesTree->root->next_moves[0], movesTree->root->player, movesTree->root->flips);
+	int currPoints = scoreTreeHelper(movesTree->root->next_moves[0], rootPlayer, movesTree->root->flips);
 
+	int tmpPoints = 0;
 	for (int i = 1; i < movesTree->root->num_moves; i++)
 	{
-		tmpPoints = scoreTreeHelper(movesTree->root->next_moves[i], movesTree->root->player, movesTree->root->flips);
+		tmpPoints = scoreTreeHelper(movesTree->root->next_moves[i], rootPlayer, movesTree->root->flips);
 		if (tmpPoints < currPoints)
 			currPoints = tmpPoints;
 	}
