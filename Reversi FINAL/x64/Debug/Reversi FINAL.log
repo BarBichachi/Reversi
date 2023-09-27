@@ -1,2 +1,5 @@
 ﻿  Main.c
+  MandatoryHighFunctions.c
+C:\Users\yokoj\Documents\GitHub\Reversi\Reversi FINAL\MandatoryHighFunctions.c(61,2): warning C4013: 'memcpy' undefined; assuming extern returning int
+  Generating Code...
   Reversi FINAL.vcxproj -> C:\Users\yokoj\Documents\GitHub\Reversi\x64\Debug\Reversi FINAL.exe

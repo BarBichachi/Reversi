@@ -66,18 +66,20 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 
 // This function expands the game tree based on available moves
 void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
-{
+{	
+	// Copy the current board state for recursive calls
 	Board tmpBoard;
-	int i = 0;
-	Player enemyPlayer = getEnemy(p);
-	MovesList lst = FindMoves(b, enemyPlayer);
+	memcpy(tmpBoard, b, sizeof(Board));
 
+	
 	// Populate the root node with the current move & player and then makes the move
 	root->pos = *move;
 	root->player = p;
-	root->flips = CheckMove(b, p, move);
-	MakeMove(b, p, move);
+	root->flips = CheckMove(tmpBoard, p, move);
+	MakeMove(tmpBoard, p, move);
 
+	Player enemyPlayer = getEnemy(p);
+	MovesList lst = FindMoves(b, enemyPlayer);
 	// If there are no moves for the enemy player or height reaches 0
 	if (isEmptyList(&lst) || height == 0)
 	{
@@ -92,10 +94,8 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 	root->next_moves = (MovesTreeNode**)malloc((root->num_moves) * sizeof(MovesTreeNode*));
 	checkAllocation(root->next_moves);
 
-	// Copy the current board state for recursive calls
-	memcpy(tmpBoard, b, sizeof(Board));
-
 	// Recursively build the game tree for enemy player's moves
+	int i = 0;
 	while (curr != NULL)
 	{
 		root->next_moves[i] = (MovesTreeNode*)malloc(sizeof(MovesTreeNode));
@@ -134,13 +134,14 @@ int PlayOneTurn(Board board, Player player, int height)
 	
 	MovesListNode* currMove = movesList.head;
 
-
-	int bestScore = 0;
+	MovesTree* currTree = ExpandMove(board, player, &(currMove->pos), height);
+	int bestScore = ScoreTree(currTree);
 	ReversiPos bestMove = currMove->pos;
+	currMove = currMove->next;
 
 	while (currMove != NULL)
 	{
-		MovesTree* currTree = ExpandMove(board, player, &(currMove->pos), height);
+		currTree = ExpandMove(board, player, &(currMove->pos), height);
 		int currScore = ScoreTree(currTree);
 		if (currScore > bestScore)
 		{
@@ -149,7 +150,6 @@ int PlayOneTurn(Board board, Player player, int height)
 		}
 		currMove = currMove->next;
 	}
-
 	MakeMove(board, player, &bestMove);
 	printf("\n%c's turn: %c%c\n", player, bestMove.col, bestMove.row);
 	return 1;
