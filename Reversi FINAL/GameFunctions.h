@@ -11,4 +11,3 @@ int checkDirection(Board board, Player player, int rowDirection, int colDirectio
 Player getEnemy(Player p);
 int countMoves(MovesList* lst);
 void freeTree(MovesTreeNode* root);
-int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points);

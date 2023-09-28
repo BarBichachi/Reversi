@@ -18,25 +18,6 @@ MovesListNode* createNewListNode(ReversiPos pos, int flips, MovesListNode* next)
 	return res;
 }
 
-// This function creates a new MovesListNode with the provided pos and flips values and inserts it at the start of the MovesList
-void insertDataToStartList(MovesList* lst, ReversiPos pos, int flips)
-{
-	MovesListNode* newHead = createNewListNode(pos, flips, NULL);
-	insertNodeToStartList(lst, newHead);
-}
-
-// This function inserts the provided head node at the start of the MovesList
-void insertNodeToStartList(MovesList* lst, MovesListNode* head)
-{
-	if (isEmptyList(lst))
-		lst->head = lst->tail = head;
-	else
-	{
-		head->next = lst->head;
-		lst->head = head;
-	}
-}
-
 // This function creates a new MovesListNode with the provided pos and flips values and inserts it at the end of the MovesList
 void insertDataToEndList(MovesList* lst, ReversiPos pos, int flips)
 {

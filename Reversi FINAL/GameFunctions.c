@@ -99,6 +99,7 @@ int directionHelper(Board board, Player player, ReversiPos* move, bool change)
 		}
 	return totalFlips;
 }
+
 // Function to check and calculate the number of pieces to flip in a specific direction
 int checkDirection(Board board, Player player, int rowDirection, int colDirection, ReversiPos* move, bool change)
 {
@@ -163,55 +164,7 @@ void freeTree(MovesTreeNode* root)
 	free(root);
 }
 
-// This function recursively evaluates the score of a moves tree by traversing the tree,
-// the score is based on the flips value and wether the node is a leaf or parent node
-int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
-{
-	int currPoints = 0;
-	int tmpPoints = 0;
-	Player currPlayer = root->player;
-
-	// In case it's a leaf
-	if (root->num_moves == 0)
-	{
-		if (currPlayer == rootPlayer)
-			points += root->flips;
-		else
-			points -= root->flips;
-		return points;
-	}
-
-	// In case it's a parent
-	else
-	{
-
-		// In case it's the same player as the root, calculate the minimum of his childs
-		if (currPlayer == rootPlayer)
-		{
-			currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points + root->flips);
-			for (int i = 1; i < root->num_moves; i++)
-			{
-				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points + root->flips);
-				if (tmpPoints < currPoints)
-					currPoints = tmpPoints;
-			}
-		}
-
-		// In case it's the enemy player's node, calculate the maximum of his childs
-		else
-		{
-			currPoints = scoreTreeHelper(root->next_moves[0], rootPlayer, points - root->flips);
-			for (int i = 1; i < root->num_moves; i++)
-			{
-				tmpPoints = scoreTreeHelper(root->next_moves[i], rootPlayer, points - root->flips);
-				if (tmpPoints > currPoints)
-					currPoints = tmpPoints;
-			}
-		}
-	}
-	return currPoints;
-}
-
+//prints the winner of the game.
 void printWinner(Board board)
 {
 	int x, o;

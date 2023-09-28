@@ -11,6 +11,7 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height);
 void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root);
 //Q4
 int ScoreTree(MovesTree* movesTree);
+int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points);
 //Q5
 int PlayOneTurn(Board board, Player player, int height);
 //Q6
