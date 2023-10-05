@@ -3,7 +3,6 @@
 
 void initializeBoard(Board board);
 void printBoard(Board board);
-void printList(MovesList* lst);
 void printSeperatingLine();
 void printWinner(Board board);
 int directionHelper(Board board, Player player, ReversiPos* move, bool change);
@@ -11,3 +10,4 @@ int checkDirection(Board board, Player player, int rowDirection, int colDirectio
 Player getEnemy(Player p);
 int countMoves(MovesList* lst);
 void freeTree(MovesTreeNode* root);
+void freeTreeNode(MovesTreeNode* node);

@@ -47,21 +47,6 @@ void printBoard(Board board) {
 	printSeperatingLine();
 }
 
-// This function prints the given moves list
-void printList(MovesList* lst)
-{
-	MovesListNode* curr = lst->head;
-
-	while (curr != NULL)
-	{
-		printf("Position: (%c, %c)\n", curr->pos.row, curr->pos.col);
-		printf("Flips: %d\n", curr->flips);
-		printf("\n");
-
-		curr = curr->next;
-	}
-}
-
 // This function prints a separating line to visually separate rows and columns on the game board
 void printSeperatingLine() {
 	for (int j = 0; j < 2 * (BOARD_SIZE + 1); j++)
@@ -151,17 +136,27 @@ int countMoves(MovesList* lst)
 	return count;
 }
 
-// This function recursively frees the tree
-void freeTree(MovesTreeNode* root)
+// Free a single MovesTreeNode and its child nodes recursively
+void freeTreeNode(MovesTreeNode* node) 
 {
-	if (root == NULL) 
+	if (node == NULL) 
 		return;
 
-	for (int i = 0; i < root->num_moves; i++) 
-		freeTree(root->next_moves[i]);
+	for (int i = 0; i < node->num_moves; i++) 
+		freeTreeNode(node->next_moves[i]);
 	
-	free(root->next_moves);
-	free(root);
+	free(node->next_moves);
+	free(node);
+}
+
+// This function recursively frees the tree
+void freeTree(MovesTree* tree) 
+{
+	if (tree == NULL) 
+		return;
+
+	freeTreeNode(tree->root);
+	free(tree);
 }
 
 //prints the winner of the game.

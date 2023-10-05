@@ -51,5 +51,5 @@ void freeList(MovesList* lst)
 		curr = curr->next;
 		free(tmp);
 	}
-	free(lst);
+	lst->head = NULL;
 }

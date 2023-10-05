@@ -12,6 +12,7 @@ int CheckMove(Board board, Player player, ReversiPos* move)
 
 	return directionHelper(board, player, move, false);
 }
+
 // This function makes a move and flips the necessary pieces
 void MakeMove(Board board, Player player, ReversiPos* move)
 {
@@ -63,6 +64,7 @@ MovesTree* ExpandMove(Board b, Player p, ReversiPos* move, int height)
 
 	return tr;
 }
+
 // This function expands the game tree based on available moves
 void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTreeNode* root)
 {	
@@ -70,7 +72,6 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 	Board tmpBoard;
 	memcpy(tmpBoard, b, sizeof(Board));
 
-	
 	// Populate the root node with the current move & player and then makes the move
 	root->pos = *move;
 	root->player = p;
@@ -101,7 +102,6 @@ void expandMoveHelper(Board b, Player p, ReversiPos* move, int height, MovesTree
 			expandMoveHelper(tmpBoard, enemyPlayer, &curr->pos, height - 1, root->next_moves[i]);
 			curr = curr->next;
 		}
-
 }
 
 //Q4
@@ -124,6 +124,7 @@ int ScoreTree(MovesTree* movesTree)
 	}
 	return minPoints;
 }
+
 // This function recursively evaluates the score of a moves tree by traversing the tree,
 // the score is based on the flips value and wether the node is a leaf or parent node
 int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
@@ -145,7 +146,6 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 	// In case it's a parent
 	else
 	{
-
 		// In case it's the same player as the root, calculate the minimum of his childs
 		if (currPlayer == rootPlayer)
 		{
@@ -157,7 +157,6 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 					currPoints = tmpPoints;
 			}
 		}
-
 		// In case it's the enemy player's node, calculate the maximum of his childs
 		else
 		{
@@ -174,8 +173,8 @@ int scoreTreeHelper(MovesTreeNode* root, Player rootPlayer, int points)
 }
 
 //Q5
-// get a current board, the player and the height of his tree,
-// then make's a move ,updates the board and returns 1,
+// Get a current board, the player and the height of his tree,
+// then makes a move, updates the board and returns 1.
 // if there are no moves available, returns 0.
 int PlayOneTurn(Board board, Player player, int height)
 {
@@ -189,12 +188,14 @@ int PlayOneTurn(Board board, Player player, int height)
 	MovesListNode* currMove = movesList.head;
 	MovesTree* currTree = ExpandMove(board, player, &(currMove->pos), height);
 	int bestScore = ScoreTree(currTree);
+	freeTree(currTree);
 	ReversiPos bestMove = currMove->pos;
 	currMove = currMove->next;
 	while (currMove != NULL)
 	{
 		currTree = ExpandMove(board, player, &(currMove->pos), height);
 		int currScore = ScoreTree(currTree);
+		freeTree(currTree);
 		if (currScore > bestScore)
 		{
 			bestMove = currMove->pos;
@@ -202,6 +203,7 @@ int PlayOneTurn(Board board, Player player, int height)
 		}
 		currMove = currMove->next;
 	}
+	freeList(&movesList);
 
 	// make the best move and return 1.
 	MakeMove(board, player, &bestMove);
